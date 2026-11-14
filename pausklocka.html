@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pausklocka – Skärmpaus</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .timer-actions button[hidden] {
+  display: none;
+}
+    .timer-page {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+      background: #f7f5ee;
+      color: #254b3b;
+    }
+
+    .timer-page * {
+      box-sizing: border-box;
+    }
+
+    .timer-card {
+      width: 100%;
+      max-width: 480px;
+      padding: 36px 28px;
+      text-align: center;
+      background: #fffdf8;
+      border-radius: 22px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.06);
+    }
+
+    .timer-card h1 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+    }
+
+   
+.timer-circle {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 32px auto;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-track,
+.timer-ring {
+  fill: none;
+  stroke-width: 8;
+}
+
+.timer-track {
+  stroke: #dce6d9;
+}
+
+.timer-ring {
+  stroke: #254b3b;
+  stroke-linecap: round;
+  stroke-dasharray: 628.319;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.25s linear;
+}
+
+.timer-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+    .timer-display {
+      font-size: 48px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timer-actions button {
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .timer-primary {
+      background: #254b3b;
+      color: white;
+      border: none;
+    }
+
+    .timer-secondary {
+      background: transparent;
+      color: #254b3b;
+      border: 1px solid #254b3b;
+    }
+  </style>
+</head>
+
+<body class="timer-page">
+  <main class="timer-card">
+    <p>LITE MINDRE SCROLL. LITE MER LIV.</p>
+
+    <h1 id="timer-heading">Din paus pågår</h1>
+    <p id="activity-name">
+      En stund för det som finns här.
+    </p>
+
+  
+<div class="timer-circle">
+    <svg class="timer-progress" viewBox="0 0 220 220"
+         aria-hidden="true">
+      <circle class="timer-track"
+              cx="110" cy="110" r="100" />
+  
+      <circle id="progress-ring"
+              class="timer-ring"
+              cx="110" cy="110" r="100" />
+    </svg>
+  
+    <div class="timer-content">
+      <div class="timer-display" id="timer">15:00</div>
+      <span>Tid kvar</span>
+    </div>
+  </div>
+  
+    <p id="timer-status" role="status" aria-live="polite">
+      Njut av din paus!
+    </p>
+
+    <div class="timer-actions">
+      <button class="timer-primary" id="pause-button">
+        Pausa
+      </button>
+
+      <button class="timer-secondary" id="stop-button">
+        Avsluta pausen
+      </button>
+    </div>
+  </main>
+
+  <script src="pausklocka.js"></script>
+</body>
+</html>
