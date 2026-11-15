@@ -147,7 +147,7 @@ pauseButton.addEventListener("click", () => {
 });
 
 stopButton.addEventListener("click", () => {
-  window.location.href = "Index.html";
+  window.location.href = "index.html";
 });
 
 updateDisplay();
