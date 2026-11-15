@@ -89,7 +89,7 @@ const companyLabel = labels.company[choice.company];
 
 statusEl.textContent = `Valt: ${timeLabel}, ${placeLabel}, ${companyLabel}. Aktivitetsförslaget kommer i nästa steg.`;
 
-window.location.href = "aktivitetsforslag.html";
+window.location.href = "Aktivitetsforslag.html";
 });
 
 restoreChoice();
