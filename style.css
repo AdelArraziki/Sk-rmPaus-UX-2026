@@ -35,6 +35,23 @@ body {
   line-height: 1.5;
 }
 
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  margin: 20px;
+  padding: 10px 16px;
+  background: #e4ecdf;
+  color: #254b3b;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.back-home:hover {
+  background: #d4e2ce;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -271,27 +288,31 @@ h1 {
 
 .tabbar {
   position: fixed;
-  left: 50%;
-  bottom: 0;
-  z-index: 10;
-  width: min(100%, 440px);
-  transform: translateX(-50%);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: end;
-  padding: 8px 18px 18px;
-  background: linear-gradient(180deg, rgba(243, 240, 232, 0) 0%, var(--bg) 28%);
+  top: 20px;
+  left: 20px;
+  right: auto;
+  bottom: auto;
+  width: auto;
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  z-index: 1000;
+  background: var(--bg);
+  border-radius: 18px;
 }
 
 .tab {
-  display: grid;
-  justify-items: center;
-  gap: 4px;
-  padding: 10px 8px 8px;
-  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 12px;
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 

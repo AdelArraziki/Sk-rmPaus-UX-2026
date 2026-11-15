@@ -104,6 +104,22 @@ function updateDisplay() {
   
 
 function finishPause() {
+  if (isFinished) return;
+
+  // Spara statistik när pausen är klar
+const statistik = JSON.parse(
+  localStorage.getItem("skarmPausStatistik") || "[]"
+);
+
+statistik.push({
+  datum: new Date().toISOString(),
+  minuter: Math.floor(totalSeconds - remainingSeconds / 60)
+});
+
+localStorage.setItem(
+  "skarmPausStatistik",
+  JSON.stringify(statistik)
+);
   isFinished = true;
   remainingSeconds = 0;
   updateDisplay();
@@ -147,6 +163,13 @@ pauseButton.addEventListener("click", () => {
 });
 
 stopButton.addEventListener("click", () => {
+  if (!isFinished) {
+    if (!isPaused) {
+      tick();
+    }
+    finishPause();
+  }
+
   window.location.href = "index.html";
 });
 
