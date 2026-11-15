@@ -399,3 +399,10 @@ h1 {
 .custom-time-fields input:focus {
   outline: 2px solid #254b3b;
 }
+/* Centrera rubriken på pausklockan */
+.timer-page h1 {
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
