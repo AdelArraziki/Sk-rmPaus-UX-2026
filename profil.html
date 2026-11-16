@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>Min profil – Skärmpaus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="brand">
+      <p class="logo">Skärmpaus</p>
+      <p class="tagline">
+        Lite mindre scroll. Lite mer liv.
+      </p>
+    </header>
+
+    
+
+    <nav class="tabbar" aria-label="Huvudmeny">
+
+        <a class="tab is-active" href="profil.html"
+           aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"></path>
+          </svg>
+          Profil
+        </a>
+      
+        <a class="tab is-disabled" href="#"
+           aria-disabled="true" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"></path>
+          </svg>
+          Favoriter
+        </a>
+      
+        
+<a class="tab" href="oversikt.html">
+    <svg viewBox="0 0 24 24"
+         aria-hidden="true"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round">
+      <path d="M4 20V12M10 20V5M16 20V9M22 20V3"></path>
+    </svg>
+    Översikt
+  </a>
+  
+      
+      </nav>
+  
+
+    <main class="profil-page">
+      <h1>Min profil</h1>
+      <p>Din personliga pausplats</p>
+
+      <section class="profil-card">
+        <div class="profil-avatar">👤</div>
+        <h2>Personliga uppgifter</h2>
+
+        <label for="profil-namn">Ditt namn</label>
+        <input id="profil-namn"
+               type="text"
+               placeholder="Skriv ditt namn">
+
+        <label for="profil-mal">Mitt pausmål per dag</label>
+        <select id="profil-mal">
+          <option value="15">15 minuter</option>
+          <option value="30">30 minuter</option>
+          <option value="60">60 minuter</option>
+          <option value="120">120 minuter</option>
+        </select>
+
+        <button type="button" id="spara-profil">
+          Spara profil
+        </button>
+        <p id="profil-meddelande" role="status"></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="profil.js"></script>
+</body>
+</html>
