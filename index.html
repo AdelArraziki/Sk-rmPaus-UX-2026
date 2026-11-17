@@ -20,6 +20,7 @@
       <header class="brand">
         <p class="logo">Skärmpaus</p>
         <p class="tagline">Lite mindre scroll. Lite mer liv.</p>
+        <p class="user-greeting" id="user-greeting" hidden></p>
       </header>
 
  
@@ -56,7 +57,36 @@ stroke-linecap="round">
       </nav>
       
       <main class="page">
+
+  <button type="button" id="stop-reminder"
+          hidden>
+    Stoppa påminnelse
+  </button>
+
+  <p id="reminder-status" role="status"></p>
+</section>
+
         <section class="intro" aria-labelledby="hero-heading">
+            
+<div class="reminder-mini">
+  <label for="reminder-time">🔔 Påminnelse</label>
+
+  <select id="reminder-time">
+    <option value="15">15 min</option>
+    <option value="30">30 min</option>
+    <option value="60" selected>60 min</option>
+    <option value="90">90 min</option>
+    <option value="120">120 min</option>
+  </select>
+
+  <button
+    type="button"
+    id="start-reminder"
+    class="reminder-start">
+    Starta
+  </button>
+          </div>
+          
           <div class="hero-frame">
             <img
               class="hero-image"
@@ -158,5 +188,7 @@ stroke-linecap="round">
     </div>
 
     <script src="script.js"></script>
+    <script src="paminnelse.js"></script>
+
   </body>
 </html>

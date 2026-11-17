@@ -222,3 +222,22 @@ nextBtn.addEventListener("click", () => {
 
   visaPeriod(valdPeriod);
 });
+function visaAnvandarnamn() {
+  try {
+    const sparad = localStorage.getItem("skarmPausProfil");
+    if (!sparad) return;
+
+    const profil = JSON.parse(sparad);
+    const namn = (profil.smeknamn || profil.namn || "").trim();
+    const halsning = document.getElementById("user-greeting");
+
+    if (namn && halsning) {
+      halsning.textContent = `Hej ${namn}! 👋`;
+      halsning.hidden = false;
+    }
+  } catch (error) {
+    console.error("Kunde inte visa namnet:", error);
+  }
+}
+
+visaAnvandarnamn();

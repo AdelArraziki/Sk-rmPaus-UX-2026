@@ -1,20 +1,22 @@
 :root {
-  --bg: #f3f0e8;
-  --bg-soft: #f7f4ed;
-  --ink: #2c352f;
-  --forest: #2f4a3c;
-  --forest-hover: #263c32;
-  --muted: #6d756e;
-  --sage: #e4ebd9;
-  --sage-strong: #d7e0cb;
-  --white: #fffcf7;
-  --line: rgba(47, 74, 60, 0.08);
-  --shadow: 0 10px 30px rgba(47, 74, 60, 0.06);
+  --bg: #FAF8F2;
+  --bg-soft: #F0F3E9;
+  --ink: #173F35;
+  --forest: #173F35;
+  --forest-hover: #2D6651;
+  --muted: #4B6056;
+  --sage: #E7EEDC;
+  --sage-strong: #D1DFC5;
+  --white: #FFFFFF;
+  --line: rgba(23, 63, 53, 0.22);
+  --shadow: 0 10px 30px rgba(23, 63, 53, 0.12);
+
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: "Outfit", "Segoe UI", sans-serif;
   --radius-pill: 999px;
   --tabbar-height: 84px;
 }
+
 
 *,
 *::before,
@@ -531,4 +533,83 @@ h1 {
   text-align: center;
   color: #254b3b;
   margin-top: 12px;
+}
+
+/* Alternativ B – tydliga ljusa flikar */
+.tabbar {
+  background: #E7EEDC;
+  border: 2px solid #173F35;
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 6px 18px rgba(23, 63, 53, 0.15);
+}
+
+.tabbar .tab {
+  color: #173F35;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.tabbar .tab svg {
+  stroke: currentColor;
+}
+
+.tabbar .tab.is-active,
+.tabbar .tab[aria-current="page"] {
+  background: #173F35;
+  color: #FFFFFF;
+}
+
+.tabbar .tab.is-disabled {
+  color: #4B6056;
+  opacity: 0.75;
+}
+
+/* Mobil – fast navigering längst ner */
+@media (max-width: 600px) {
+  .tabbar {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    transform: none !important;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4px;
+
+    padding: 10px 8px
+      calc(10px + env(safe-area-inset-bottom));
+
+    background: #E7EEDC;
+    border: 2px solid #173F35;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -4px 18px rgba(23, 63, 53, 0.15);
+    z-index: 1000;
+  }
+
+  .tabbar .tab {
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 4px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .tabbar .tab svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .app {
+    padding-bottom: calc(115px + env(safe-area-inset-bottom));
+  }
 }

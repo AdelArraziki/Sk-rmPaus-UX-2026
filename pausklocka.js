@@ -175,3 +175,45 @@ stopButton.addEventListener("click", () => {
 
 updateDisplay();
 setInterval(tick, 250);
+
+const reminderButton = document.getElementById("start-reminder");
+const reminderTime = document.getElementById("reminder-time");
+
+if (reminderButton && reminderTime) {
+  reminderButton.addEventListener("click", () => {
+    const minuter = Number(reminderTime.value);
+
+    if (reminderButton.dataset.active === "true") {
+      stoppaPaminnelse();
+
+      reminderButton.dataset.active = "false";
+      reminderButton.textContent = "Starta";
+      reminderTime.disabled = false;
+    } else {
+      startaPaminnelse(minuter);
+
+      reminderButton.dataset.active = "true";
+      reminderButton.textContent = "Stoppa";
+      reminderTime.disabled = true;
+    }
+  });
+}
+function visaAnvandarnamn() {
+  try {
+    const sparad = localStorage.getItem("skarmPausProfil");
+    if (!sparad) return;
+
+    const profil = JSON.parse(sparad);
+    const namn = (profil.smeknamn || profil.namn || "").trim();
+    const halsning = document.getElementById("user-greeting");
+
+    if (namn && halsning) {
+      halsning.textContent = `Hej ${namn}! 👋`;
+      halsning.hidden = false;
+    }
+  } catch (error) {
+    console.error("Kunde inte visa namnet:", error);
+  }
+}
+
+visaAnvandarnamn();

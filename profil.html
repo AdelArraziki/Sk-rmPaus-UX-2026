@@ -20,7 +20,20 @@
     
 
     <nav class="tabbar" aria-label="Huvudmeny">
-
+         
+<a class="tab" href="index.html">
+    <svg viewBox="0 0 24 24"
+         aria-hidden="true"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round">
+      <path d="M3 10L12 3L21 10V21H3V10Z"></path>
+      <path d="M9 21V14H15V21"></path>
+    </svg>
+    Hem
+  </a>
+  
         <a class="tab is-active" href="profil.html"
            aria-current="page">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -58,6 +71,7 @@
     <main class="profil-page">
       <h1>Min profil</h1>
       <p>Din personliga pausplats</p>
+      <p class="user-greeting" id="user-greeting" hidden></p>
 
       <section class="profil-card">
         <div class="profil-avatar">👤</div>
@@ -68,6 +82,14 @@
                type="text"
                placeholder="Skriv ditt namn">
 
+               <label for="profil-smeknamn">Smeknamn (valfritt)</label>
+<input
+  id="profil-smeknamn"
+  type="text"
+  maxlength="30"
+  placeholder="Vad vill du bli kallad?"
+>
+
         <label for="profil-mal">Mitt pausmål per dag</label>
         <select id="profil-mal">
           <option value="15">15 minuter</option>
@@ -75,6 +97,30 @@
           <option value="60">60 minuter</option>
           <option value="120">120 minuter</option>
         </select>
+        <label for="profil-paminnelse">Påminn mig efter</label>
+<select id="profil-paminnelse">
+  <option value="30">30 minuter</option>
+  <option value="60">60 minuter</option>
+  <option value="90">90 minuter</option>
+  <option value="120">120 minuter</option>
+</select>
+
+<label for="profil-aktivitet">Min favoritaktivitet</label>
+<select id="profil-aktivitet">
+  <option value="">Välj aktivitet</option>
+  <option value="promenad">Promenad</option>
+  <option value="traning">Träning</option>
+  <option value="lasa">Läsa en bok</option>
+  <option value="musik">Lyssna på musik</option>
+  <option value="familj">Tid med familjen</option>
+</select>
+
+<label for="profil-plats">Jag föredrar att vara</label>
+<select id="profil-plats">
+  <option value="bada">Både inne och ute</option>
+  <option value="inne">Inomhus</option>
+  <option value="ute">Utomhus</option>
+</select>
 
         <button type="button" id="spara-profil">
           Spara profil
