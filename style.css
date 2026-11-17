@@ -613,3 +613,117 @@ h1 {
     padding-bottom: calc(115px + env(safe-area-inset-bottom));
   }
 }
+
+/* Centrera illustrationen på datorn */
+@media (min-width: 900px) {
+  .hero-frame {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-frame img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+/* Dator – bild till vänster, inställningar till höger */
+@media (min-width: 900px) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .page > .intro {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .page > .setup {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .intro .hero-frame {
+    margin: 16px auto 28px;
+  }
+}
+
+/* Dator – flikar närmare rubriken */
+@media (min-width: 900px) {
+  .brand {
+    margin-bottom: 8px;
+  }
+
+  .tabbar {
+    margin-top: 4px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Kompakt och tydlig påminnelse */
+.reminder-mini {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 20px;
+  padding: 12px 16px;
+  background: #E7EEDC;
+  border: 1px solid #A8BCA8;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(23, 63, 53, 0.10);
+}
+
+.reminder-mini label {
+  color: #173F35;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.reminder-mini select {
+  padding: 10px 30px 10px 12px;
+  background: #FFFFFF;
+  color: #173F35;
+  border: 1px solid #A8BCA8;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.reminder-mini button {
+  padding: 10px 18px;
+  background: #173F35;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reminder-mini button:hover {
+  background: #2D6651;
+}
+
+.reminder-mini select:focus-visible,
+.reminder-mini button:focus-visible {
+  outline: 3px solid #2D6651;
+  outline-offset: 3px;
+}
