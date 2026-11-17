@@ -122,10 +122,27 @@
   min-width: 0;
 }
 
+
 .weekly-chart.month-view {
-  gap: 2px;
-  justify-content: space-between;
+  gap: 8px;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 12px;
 }
+
+.month-view .day {
+  flex: 0 0 32px;
+  min-width: 32px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.month-view .bar {
+  width: 70%;
+  max-width: 18px;
+}
+
 
 .month-view .day {
   min-width: 0;

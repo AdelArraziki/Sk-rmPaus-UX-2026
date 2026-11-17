@@ -66,14 +66,49 @@
       color: #254b3b;
       border: 1px solid #254b3b;
     }
+
+/* Små navigeringsknappar under Starta pausen */
+
+.activity-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.activity-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 44px;
+  padding: 0 10px;
+  background: #e7eedc;
+  color: #254b3b;
+  border: 1px solid #b6c8b6;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background 0.2s ease;
+}
+
+
+.activity-nav-btn:hover {
+  background: #d5e3cd;
+}
+
+.activity-nav-btn:focus-visible {
+  outline: 3px solid #254b3b;
+  outline-offset: 3px;
+}
+
   </style>
 </head>
 <body class="activity-page">
 
 
-  <a href="index.html" class="back-home">
-    ← Tillbaka
-  </a>
   
   <main class="activity-card">
     <p>LITE MINDRE SCROLL. LITE MER LIV.</p>
@@ -97,6 +132,17 @@
       <button class="activity-primary" id="start-break">
         Starta pausen
       </button>
+
+<div class="activity-navigation">
+  <a href="index.html" class="activity-nav-btn">
+    ← Tillbaka
+  </a>
+
+  <a href="index.html" class="activity-nav-btn">
+    ⌂ Hem
+  </a>
+</div>
+
     </div>
   </main>
 
