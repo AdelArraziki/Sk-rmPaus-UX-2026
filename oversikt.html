@@ -7,12 +7,10 @@
         content="width=device-width, initial-scale=1.0">
 
   <title>Översikt – Skärmfrid</title>
-
   <link rel="stylesheet" href="style.css">
 
   <style>
     /* SIDANS LAYOUT */
-
     .overview-header {
       position: relative;
       max-width: 650px;
@@ -21,8 +19,7 @@
       min-height: 72px;
     }
 
-    /* Hem-symbol längst upp till vänster */
-
+    /* Home-symbol längst upp till vänster */
     .overview-home {
       display: inline-flex;
       align-items: center;
@@ -80,7 +77,6 @@
     }
 
     /* STATISTIKKORT */
-
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -113,7 +109,6 @@
     }
 
     /* DIAGRAMKORT */
-
     .weekly-card {
       background: #ffffff;
       border-radius: 20px;
@@ -123,7 +118,6 @@
     }
 
     /* PILAR FÖR PERIODBYTE */
-
     .chart-navigation {
       display: flex;
       align-items: center;
@@ -157,7 +151,6 @@
     }
 
     /* DAG, VECKA, MÅNAD */
-
     .period-buttons {
       display: flex;
       justify-content: center;
@@ -191,7 +184,6 @@
     }
 
     /* VECKODIAGRAM */
-
     .weekly-chart {
       display: flex;
       align-items: stretch;
@@ -248,7 +240,6 @@
     }
 
     /* MÅNADSDIAGRAM */
-
     .weekly-chart.month-view {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -269,13 +260,11 @@
     }
 
     /* DAGSVY */
-
     .weekly-chart.day-view {
       display: none;
     }
 
     /* TOM PERIOD */
-
     #chart-empty {
       text-align: center;
       color: #69746d;
@@ -283,37 +272,7 @@
       padding: 14px;
     }
 
-    /* TILLBAKA-PIL LÄNGST NED */
-
-    .overview-navigation {
-      display: flex;
-      justify-content: flex-start;
-      margin-top: 28px;
-      margin-bottom: 16px;
-    }
-
-    .overview-back-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      background: #e7eedc;
-      color: #254b3b;
-      border: 1px solid #b6c8b6;
-      border-radius: 50%;
-      font-size: 24px;
-      font-weight: 500;
-      text-decoration: none;
-      box-sizing: border-box;
-      transition: background .2s ease;
-    }
-
-    .overview-back-btn:hover {
-      background: #d5e3cd;
-    }
-
-    .overview-back-btn:focus-visible,
+    /* TANGENTBORDSNAVIGERING */
     .overview-home:focus-visible,
     .chart-navigation button:focus-visible,
     .period-buttons button:focus-visible {
@@ -322,7 +281,6 @@
     }
 
     /* MOBILANPASSNING */
-
     @media (max-width: 480px) {
       .overview-header {
         padding: 16px 14px 0;
@@ -369,54 +327,64 @@
 
     @media (prefers-reduced-motion: reduce) {
       .weekly-chart .bar,
-      .overview-home,
-      .overview-back-btn {
+      .overview-home {
         transition: none;
       }
     }
+
+
+/* Extra utrymme under diagrammet */
+.overview-page {
+  padding-bottom: 150px;
+}
+
+/* Anpassning för mobil */
+@media (max-width: 480px) {
+  .overview-page {
+    padding-bottom: 170px;
+  }
+}
+
   </style>
 </head>
 
 <body>
 
-  <!-- HEM-SYMBOL -->
-  <header class="overview-header">
+  <!-- HOME-SYMBOL LÄNGST UPP -->
+ 
+<!-- HOME-SYMBOL LÄNGST UPP -->
+<header class="overview-header">
+  <a href="hem.html"
+     class="home-button"
+     aria-label="Till startsidan">
+    🏠
+  </a>
+</header>
 
-    <a
-      href="hem.html"
-      class="overview-home"
-      aria-label="Till Hem"
-      title="Hem">
-
-      <svg viewBox="0 0 24 24"
-           aria-hidden="true">
-        <path d="M3 10L12 3L21 10V21H3V10Z"></path>
-        <path d="M9 21V14H15V21"></path>
-      </svg>
-
-    </a>
-
-  </header>
 
   <!-- HUVUDMENY -->
   <nav class="tabbar" aria-label="Huvudmeny">
 
-    <a class="tab" href="hem.html">
+    <!-- TILLBAKA ERSÄTTER HEM -->
+    <a class="tab"
+       href="hem.html"
+       aria-label="Tillbaka till Hem">
+
       <svg viewBox="0 0 24 24"
            aria-hidden="true"
            fill="none"
            stroke="currentColor"
            stroke-width="2"
-           stroke-linecap="round">
-        <path d="M3 10L12 3L21 10V21H3V10Z"></path>
-        <path d="M9 21V14H15V21"></path>
+           stroke-linecap="round"
+           stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"></path>
       </svg>
-      Hem
+
+      Tillbaka
     </a>
 
     <a class="tab" href="profil.html">
-      <svg viewBox="0 0 24 24"
-           aria-hidden="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="8" r="4"></circle>
         <path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"></path>
       </svg>
@@ -427,27 +395,30 @@
        href="#"
        aria-disabled="true"
        tabindex="-1">
-      <svg viewBox="0 0 24 24"
-           aria-hidden="true">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"></path>
       </svg>
+
       Favoriter
     </a>
 
     <a class="tab is-active"
        href="oversikt.html"
        aria-current="page">
+
       <svg viewBox="0 0 24 24"
            aria-hidden="true"
            fill="none"
            stroke="currentColor"
            stroke-width="2"
            stroke-linecap="round">
+
         <path d="M4 20V12M10 20V5M16 20V9M22 20V3"></path>
       </svg>
+
       Översikt
     </a>
-
   </nav>
 
   <!-- SIDANS INNEHÅLL -->
@@ -503,7 +474,6 @@
           Dagar i följd
         </span>
       </div>
-
     </section>
 
     <!-- DIAGRAM -->
@@ -527,7 +497,6 @@
                 aria-label="Nästa period">
           ❯
         </button>
-
       </div>
 
       <div class="period-buttons"
@@ -548,7 +517,6 @@
                 id="month-btn">
           Månad
         </button>
-
       </div>
 
       <div class="weekly-chart"
@@ -559,26 +527,10 @@
       <p id="chart-empty" hidden>
         Inga registrerade pauser under denna period ännu.
       </p>
-
     </section>
-
-    <!-- TILLBAKA-PIL LÄNGST NED TILL VÄNSTER -->
-    <nav class="overview-navigation"
-         aria-label="Tillbaka">
-
-      <a
-        href="hem.html"
-        class="overview-back-btn"
-        aria-label="Tillbaka till Hem"
-        title="Tillbaka">
-        <span aria-hidden="true">←</span>
-      </a>
-
-    </nav>
 
   </main>
 
   <script src="oversikt.js"></script>
-
 </body>
 </html>

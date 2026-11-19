@@ -200,19 +200,56 @@
         transition: none;
       }
     }
+
+
+/* Home-knapp i övre vänstra hörnet */
+.timer-page {
+  position: relative;
+}
+
+.timer-page .home-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e7eedc;
+  color: #254b3b;
+  border: 1px solid #b6c8b6;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 21px;
+  z-index: 20;
+}
+
+.timer-page .home-button:hover {
+  background: #d5e3cd;
+}
+
   </style>
 </head>
+ 
 
 <body class="timer-page">
 
+ 
+
   <main class="timer-card">
 
+   
     <p
       class="user-greeting"
       id="user-greeting"
       hidden>
     </p>
 
+    <a href="hem.html" class="home-button" aria-label="Till startsidan">
+      🏠
+    </a>
+    
     <h1 id="timer-heading">
       Din paus pågår
     </h1>
