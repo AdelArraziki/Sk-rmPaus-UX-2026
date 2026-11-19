@@ -1,0 +1,36 @@
+
+# Tillfälliga filer
+*.log
+*.tmp
+
+# Systemfiler
+.DS_Store
+Thumbs.db
+
+# Cursor och VS Code
+.vscode/
+
+# Hemliga inställningar
+.env
+.env.local
+
+# Installerade paket
+node_modules/
+
+# Systemfiler
+.DS_Store
+Thumbs.db
+
+# Tillfälliga filer
+*.log
+*.tmp
+
+# Hemliga inställningar
+.env
+.env.local
+
+# Installerade paket
+node_modules/
+
+# Lokala editorinställningar
+.vscode/

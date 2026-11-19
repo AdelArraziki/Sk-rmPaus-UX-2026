@@ -1,149 +1,223 @@
+
 const form = document.querySelector("#pause-form");
 const statusEl = document.querySelector("#form-status");
 const storageKey = "skarmpaus-val";
+
+const durationSelect = document.getElementById("pause-duration");
+const customTimeBox = document.getElementById("pause-custom-time");
+const customMinutesInput = document.getElementById("custom-minutes");
+const customSecondsInput = document.getElementById("custom-seconds");
+
+// Gemensamma nycklar för Påminnelse och Skärmpaus
+const aktivFunktionKey = "skarmfrid-aktiv-funktion";
+const paminnelseSlutKey = "skarmfrid-paminnelse-sluttid";
 
 const labels = {
   duration: {
     15: "15 minuter",
     30: "30 minuter",
     60: "1 timme",
-    120: "2 timmar",
+    120: "2 timmar"
   },
   place: {
     inne: "inne",
-    ute: "ute",
+    ute: "ute"
   },
   company: {
     ensam: "ensam",
-    tillsammans: "tillsammans",
-  },
+    tillsammans: "tillsammans"
+  }
 };
 
+// Visa minuter och sekunder endast vid Valfri tid
+function updateCustomTime() {
+  if (!durationSelect || !customTimeBox) return;
 
+  const isCustom = durationSelect.value === "custom";
+
+  customTimeBox.hidden = !isCustom;
+  customTimeBox.classList.toggle("is-visible", isCustom);
+
+  if (!isCustom) {
+    if (customMinutesInput) customMinutesInput.value = "";
+    if (customSecondsInput) customSecondsInput.value = "";
+  }
+}
+
+// Läs användarens val
 function readChoice() {
   const data = new FormData(form);
+  const isCustom = durationSelect.value === "custom";
 
-  const customMinutesEl = document.getElementById("custom-minutes");
-  const customSecondsEl = document.getElementById("custom-seconds");
+  let duration = Number(durationSelect.value);
+  let customSeconds = null;
 
-  const hasCustomTime =
-    customMinutesEl.value !== "" ||
-    customSecondsEl.value !== "";
+  if (isCustom) {
+    const minutes = Number(customMinutesInput.value || 0);
+    const seconds = Number(customSecondsInput.value || 0);
 
-  const customMinutes = Number(customMinutesEl.value || 0);
-  const customSeconds = Number(customSecondsEl.value || 0);
+    if (
+      !Number.isInteger(minutes) ||
+      !Number.isInteger(seconds) ||
+      minutes < 0 ||
+      minutes > 120 ||
+      seconds < 0 ||
+      seconds > 59 ||
+      minutes * 60 + seconds === 0
+    ) {
+      throw new Error(
+        "Ange en giltig paustid mellan 1 sekund och 120 minuter."
+      );
+    }
 
-  if (
-    hasCustomTime &&
-    (!Number.isInteger(customMinutes) ||
-      !Number.isInteger(customSeconds) ||
-      customMinutes < 0 ||
-      customMinutes > 120 ||
-      customSeconds < 0 ||
-      customSeconds > 59 ||
-      customMinutes * 60 + customSeconds === 0)
-  ) {
-    throw new Error("Ange en giltig paustid.");
+    customSeconds = minutes * 60 + seconds;
+
+    // Behåll standardvärde för övriga sidor
+    duration = 30;
   }
 
   return {
-    duration: Number(data.get("duration")),
-    customSeconds: hasCustomTime
-      ? customMinutes * 60 + customSeconds
-      : null,
+    duration,
+    customSeconds,
     place: data.get("place"),
-    company: data.get("company"),
+    company: data.get("company")
   };
 }
 
+// Starta alltid med 30 minuter på startsidan
+function setDefaultChoice() {
+  if (!durationSelect) return;
 
-function restoreChoice() {
-  try {
-    const saved = JSON.parse(sessionStorage.getItem(storageKey));
-    if (!saved) return;
+  durationSelect.value = "30";
 
-    const duration = form.querySelector(`[name="duration"][value="${saved.duration}"]`);
-    const place = form.querySelector(`[name="place"][value="${saved.place}"]`);
-    const company = form.querySelector(`[name="company"][value="${saved.company}"]`);
+  if (customMinutesInput) customMinutesInput.value = "";
+  if (customSecondsInput) customSecondsInput.value = "";
 
-    if (duration) duration.checked = true;
-    if (place) place.checked = true;
-    if (company) company.checked = true;
-  } catch {
-    sessionStorage.removeItem(storageKey);
+  updateCustomTime();
+}
+
+// Kontrollera om Påminnelse är aktiv
+function paminnelseArAktiv() {
+  const sparadSluttid = localStorage.getItem(paminnelseSlutKey);
+  const slutTid = sparadSluttid === null
+    ? 0
+    : Number(sparadSluttid);
+
+  return (
+    localStorage.getItem(aktivFunktionKey) === "paminnelse" ||
+    (Number.isFinite(slutTid) && slutTid > Date.now())
+  );
+}
+
+// Uppdatera Skärmpaus-panelen
+function uppdateraSkarmPausStatus() {
+  if (!form) return;
+
+  const arLast = paminnelseArAktiv();
+
+  form.querySelectorAll("input, select, button").forEach((element) => {
+    element.disabled = arLast;
+  });
+
+  if (statusEl) {
+    statusEl.textContent = arLast
+      ? "🔔 Stoppa påminnelsen innan du startar Skärmpaus."
+      : "";
   }
 }
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+// När användaren klickar på Ta en paus
+if (form) {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-  const choice = readChoice();
-  sessionStorage.setItem(storageKey, JSON.stringify(choice));
+    // Tillåt inte Skärmpaus när Påminnelse är aktiv
+    if (paminnelseArAktiv()) {
+      if (statusEl) {
+        statusEl.textContent =
+          "🔔 Stoppa påminnelsen innan du startar Skärmpaus.";
+      }
 
-  
-  const timeLabel = choice.customSeconds !== null
-  ? `${Math.floor(choice.customSeconds / 60)} min ${choice.customSeconds % 60} sek`
-  : labels.duration[choice.duration];
-const placeLabel = labels.place[choice.place];
-const companyLabel = labels.company[choice.company];
+      uppdateraSkarmPausStatus();
+      return;
+    }
 
-statusEl.textContent = `Valt: ${timeLabel}, ${placeLabel}, ${companyLabel}. Aktivitetsförslaget kommer i nästa steg.`;
+    try {
+      const choice = readChoice();
 
-window.location.href = "Aktivitetsforslag.html";
-});
+      sessionStorage.setItem(
+        storageKey,
+        JSON.stringify(choice)
+      );
 
-restoreChoice();
+      const timeLabel = choice.customSeconds !== null
+        ? `${Math.floor(choice.customSeconds / 60)} min ${choice.customSeconds % 60} sek`
+        : labels.duration[choice.duration];
 
-const durationRadios = document.querySelectorAll(
-  'input[name="duration"]'
-);
+      const placeLabel = labels.place[choice.place];
+      const companyLabel = labels.company[choice.company];
 
-const customMinutesInput = document.getElementById("custom-minutes");
-const customSecondsInput = document.getElementById("custom-seconds");
+      if (statusEl) {
+        statusEl.textContent =
+          `Valt: ${timeLabel}, ${placeLabel}, ${companyLabel}.`;
+      }
 
-// När användaren skriver en egen tid:
-// avmarkera snabbvalen.
-function activateCustomTime() {
-  if (
-    customMinutesInput.value !== "" ||
-    customSecondsInput.value !== ""
-  ) {
-    durationRadios.forEach(radio => {
-      radio.checked = false;
-    });
-  }
-}
+      window.location.href = "Aktivitetsforslag.html";
 
-customMinutesInput.addEventListener("input", activateCustomTime);
-customSecondsInput.addEventListener("input", activateCustomTime);
-
-// När användaren väljer ett snabbval:
-// töm den anpassade tiden.
-durationRadios.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (radio.checked) {
-      customMinutesInput.value = "";
-      customSecondsInput.value = "";
+    } catch (error) {
+      if (statusEl) {
+        statusEl.textContent = error.message;
+      }
     }
   });
-});
+}
 
+// Visa användarnamn från profilen
 function visaAnvandarnamn() {
   try {
     const sparad = localStorage.getItem("skarmPausProfil");
     if (!sparad) return;
 
     const profil = JSON.parse(sparad);
-    const namn = (profil.smeknamn || profil.namn || "").trim();
+
+    const namn = (
+      profil.smeknamn ||
+      profil.namn ||
+      ""
+    ).trim();
+
     const halsning = document.getElementById("user-greeting");
 
     if (namn && halsning) {
       halsning.textContent = `Hej ${namn}! 👋`;
       halsning.hidden = false;
     }
+
   } catch (error) {
     console.error("Kunde inte visa namnet:", error);
   }
 }
 
+// Initiera startsidan
+if (durationSelect && customTimeBox) {
+  durationSelect.addEventListener("change", updateCustomTime);
+  setDefaultChoice();
+}
+
+uppdateraSkarmPausStatus();
 visaAnvandarnamn();
+
+// Uppdatera om status ändras i en annan flik
+window.addEventListener("storage", (event) => {
+  if (
+    event.key === aktivFunktionKey ||
+    event.key === paminnelseSlutKey
+  ) {
+    uppdateraSkarmPausStatus();
+  }
+});
+
+// Kontrollera status när användaren återvänder till sidan
+window.addEventListener("pageshow", () => {
+  uppdateraSkarmPausStatus();
+});

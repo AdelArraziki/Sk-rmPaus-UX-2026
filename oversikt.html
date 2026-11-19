@@ -1,17 +1,60 @@
+
 <!DOCTYPE html>
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
-  <title>Översikt – Skärmpaus</title>
+
+  <title>Översikt – Skärmfrid</title>
+
   <link rel="stylesheet" href="style.css">
 
   <style>
+    /* SIDANS LAYOUT */
+
+    .overview-header {
+      position: relative;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 24px 20px 0;
+      min-height: 72px;
+    }
+
+    /* Hem-symbol längst upp till vänster */
+
+    .overview-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: #e7eedc;
+      color: #254b3b;
+      border: 1px solid #b6c8b6;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background .2s ease;
+    }
+
+    .overview-home svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .overview-home:hover {
+      background: #d5e3cd;
+    }
+
     .overview-page {
       max-width: 650px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 20px 20px 30px;
       color: #254b3b;
     }
 
@@ -25,285 +68,517 @@
       color: #69746d;
     }
 
+    .user-greeting {
+      text-align: center;
+      color: #285b43;
+      font-weight: 600;
+    }
+
+    .stats-period-title {
+      margin-top: 30px;
+      font-size: 21px;
+    }
+
+    /* STATISTIKKORT */
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-top: 30px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
     }
 
     .stat-card {
-      background: #e4ecdf;
+      background: #ffffff;
+      border: 1px solid #e2e9e2;
       border-radius: 18px;
-      padding: 24px 12px;
+      padding: 22px 14px;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(30,70,45,.05);
     }
 
     .stat-number {
-      font-size: 36px;
-      font-weight: bold;
       display: block;
+      color: #285b43;
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     .stat-label {
-      font-size: 14px;
+      display: block;
+      color: #64756a;
+      font-size: 13px;
+      line-height: 1.5;
     }
+
+    /* DIAGRAMKORT */
 
     .weekly-card {
       background: #ffffff;
       border-radius: 20px;
       padding: 24px;
       margin-top: 25px;
+      box-shadow: 0 6px 22px rgba(37,75,59,.07);
     }
 
-    .weekly-chart {
+    /* PILAR FÖR PERIODBYTE */
+
+    .chart-navigation {
       display: flex;
-      align-items: end;
-      justify-content: space-around;
-      height: 180px;
-      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
     }
 
-    .day {
-  text-align: center;
-  flex: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.bar {
-  background: #8aaf91;
-  border-radius: 8px 8px 0 0;
-  height: 0px;
-  width: 70%;
-  margin: auto auto 8px;
-  margin-top: 0;
-  flex-shrink: 0;
-}
-
-    .back-link {
-      display: block;
+    .chart-navigation h2 {
+      margin: 0;
+      font-size: 20px;
       text-align: center;
-      margin-top: 30px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chart-navigation button {
+      background: #e6efe8;
+      border: 1px solid #c5d8c9;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      cursor: pointer;
+      font-size: 18px;
       color: #254b3b;
     }
 
+    .chart-navigation button:hover {
+      background: #cfe3d4;
+    }
+
+    /* DAG, VECKA, MÅNAD */
+
     .period-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
-}
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
 
-.period-buttons button {
-  padding: 10px 24px;
-  border: 1px solid #8aaf91;
-  border-radius: 25px;
-  background: white;
-  color: #254b3b;
-  cursor: pointer;
-  font-size: 15px;
-}
+    .period-buttons button {
+      padding: 10px 24px;
+      border: 1px solid #8aaf91;
+      border-radius: 25px;
+      background: #ffffff;
+      color: #254b3b;
+      cursor: pointer;
+      font-size: 15px;
+    }
 
-.period-buttons button.active {
-  background: #8aaf91;
-  color: white;
-}
+    .period-buttons button.active {
+      background: #8aaf91;
+      color: #ffffff;
+    }
 
-.period-buttons button:hover {
-  background: #dce9df;
-  color: #254b3b;
-}
-/* Anpassa diagrammet för månad */
-.weekly-chart {
-  width: 100%;
-  min-width: 0;
-}
+    .period-buttons button:hover {
+      background: #dce9df;
+      color: #254b3b;
+    }
 
+    .period-buttons button.active:hover {
+      background: #648d70;
+      color: #ffffff;
+    }
 
-.weekly-chart.month-view {
-  gap: 8px;
-  justify-content: flex-start;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 12px;
-}
+    /* VECKODIAGRAM */
 
-.month-view .day {
-  flex: 0 0 32px;
-  min-width: 32px;
-  font-size: 11px;
-  text-align: center;
-}
+    .weekly-chart {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-around;
+      width: 100%;
+      height: 200px;
+      gap: 8px;
+      margin-top: 25px;
+    }
 
-.month-view .bar {
-  width: 70%;
-  max-width: 18px;
-}
+    .weekly-chart .day {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      min-width: 0;
+      height: 100%;
+      text-align: center;
+      gap: 6px;
+    }
 
+    .weekly-chart .bar {
+      width: 65%;
+      max-width: 38px;
+      max-height: 150px;
+      min-height: 0;
+      margin-top: auto;
+      background: linear-gradient(
+        180deg,
+        #a5c6a5,
+        #648d70
+      );
+      border-radius: 8px 8px 3px 3px;
+      flex-shrink: 0;
+      cursor: help;
+      transition:
+        opacity .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+    }
 
-.month-view .day {
-  min-width: 0;
-  font-size: 10px;
-}
+    .weekly-chart .bar:hover {
+      background: #e69b62;
+      opacity: 1;
+      transform: scaleX(1.3);
+      box-shadow: 0 3px 10px rgba(230,155,98,.35);
+    }
 
-.month-view .bar {
-  width: 75%;
-  max-width: 18px;
-}
+    .weekly-chart .day-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #607568;
+    }
 
-.chart-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 15px;
-}
+    /* MÅNADSDIAGRAM */
 
-.chart-navigation h2 {
-  margin: 0;
-  text-align: center;
-}
+    .weekly-chart.month-view {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 12px 5px;
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+      align-items: end;
+    }
 
-.chart-navigation button {
-  background: #e6efe8;
-  border: 1px solid #c5d8c9;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  cursor: pointer;
-  font-size: 18px;
-  color: #254b3b;
-}
+    .weekly-chart.month-view .day {
+      height: 110px;
+      min-width: 0;
+    }
 
-.chart-navigation button:hover {
-  background: #cfe3d4;
-}
+    .weekly-chart.month-view .bar {
+      max-width: 22px;
+    }
 
+    /* DAGSVY */
+
+    .weekly-chart.day-view {
+      display: none;
+    }
+
+    /* TOM PERIOD */
+
+    #chart-empty {
+      text-align: center;
+      color: #69746d;
+      font-size: 14px;
+      padding: 14px;
+    }
+
+    /* TILLBAKA-PIL LÄNGST NED */
+
+    .overview-navigation {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    .overview-back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: #e7eedc;
+      color: #254b3b;
+      border: 1px solid #b6c8b6;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: 500;
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: background .2s ease;
+    }
+
+    .overview-back-btn:hover {
+      background: #d5e3cd;
+    }
+
+    .overview-back-btn:focus-visible,
+    .overview-home:focus-visible,
+    .chart-navigation button:focus-visible,
+    .period-buttons button:focus-visible {
+      outline: 3px solid #254b3b;
+      outline-offset: 3px;
+    }
+
+    /* MOBILANPASSNING */
+
+    @media (max-width: 480px) {
+      .overview-header {
+        padding: 16px 14px 0;
+        min-height: 60px;
+      }
+
+      .overview-page {
+        padding: 20px 14px 24px;
+      }
+
+      .stats-grid {
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 20px 8px;
+      }
+
+      .stat-number {
+        font-size: 26px;
+      }
+
+      .weekly-card {
+        padding: 18px 12px;
+      }
+
+      .period-buttons button {
+        padding: 10px 18px;
+        font-size: 14px;
+      }
+
+      .chart-navigation {
+        gap: 10px;
+      }
+
+      .chart-navigation h2 {
+        font-size: 17px;
+      }
+
+      .weekly-chart {
+        gap: 5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .weekly-chart .bar,
+      .overview-home,
+      .overview-back-btn {
+        transition: none;
+      }
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- HEM-SYMBOL -->
+  <header class="overview-header">
 
+    <a
+      href="hem.html"
+      class="overview-home"
+      aria-label="Till Hem"
+      title="Hem">
+
+      <svg viewBox="0 0 24 24"
+           aria-hidden="true">
+        <path d="M3 10L12 3L21 10V21H3V10Z"></path>
+        <path d="M9 21V14H15V21"></path>
+      </svg>
+
+    </a>
+
+  </header>
+
+  <!-- HUVUDMENY -->
   <nav class="tabbar" aria-label="Huvudmeny">
-   
-<a class="tab" href="index.html">
-  <svg viewBox="0 0 24 24"
-       aria-hidden="true"
-       fill="none"
-       stroke="currentColor"
-       stroke-width="2"
-       stroke-linecap="round">
-    <path d="M3 10L12 3L21 10V21H3V10Z"></path>
-    <path d="M9 21V14H15V21"></path>
-  </svg>
-  Hem
-</a>
+
+    <a class="tab" href="hem.html">
+      <svg viewBox="0 0 24 24"
+           aria-hidden="true"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2"
+           stroke-linecap="round">
+        <path d="M3 10L12 3L21 10V21H3V10Z"></path>
+        <path d="M9 21V14H15V21"></path>
+      </svg>
+      Hem
+    </a>
 
     <a class="tab" href="profil.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg viewBox="0 0 24 24"
+           aria-hidden="true">
         <circle cx="12" cy="8" r="4"></circle>
         <path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"></path>
       </svg>
       Profil
     </a>
-  
-    <a class="tab is-disabled" href="#"
-       aria-disabled="true" tabindex="-1">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+
+    <a class="tab is-disabled"
+       href="#"
+       aria-disabled="true"
+       tabindex="-1">
+      <svg viewBox="0 0 24 24"
+           aria-hidden="true">
         <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"></path>
       </svg>
       Favoriter
     </a>
-  
-    <a class="tab is-active" href="oversikt.html"
+
+    <a class="tab is-active"
+       href="oversikt.html"
        aria-current="page">
-      <svg viewBox="0 0 24 24" aria-hidden="true"
-           fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round">
+      <svg viewBox="0 0 24 24"
+           aria-hidden="true"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2"
+           stroke-linecap="round">
         <path d="M4 20V12M10 20V5M16 20V9M22 20V3"></path>
       </svg>
       Översikt
     </a>
-  
-  </nav>  
 
-    <a href="index.html" class="back-home">
-        ← Tillbaka
-    </a>
+  </nav>
+
+  <!-- SIDANS INNEHÅLL -->
   <main class="overview-page">
+
     <h1>Din översikt</h1>
+
     <p class="overview-subtitle">
       Lite mindre scroll. Lite mer liv.
-
     </p>
-    <p class="user-greeting" id="user-greeting" hidden></p>
-    
-    
 
-    <section class="stats-grid">
+    <p class="user-greeting"
+       id="user-greeting"
+       hidden></p>
+
+    <!-- STATISTIK -->
+    <h2 id="stats-period-title"
+        class="stats-period-title">
+      Din statistik
+    </h2>
+
+    <section class="stats-grid"
+             aria-label="Pausstatistik">
+
       <div class="stat-card">
-        <span class="stat-number" id="total-pauses">0</span>
-        <span class="stat-label">Genomförda pauser</span>
+        <span class="stat-number"
+              id="total-pauses">0</span>
+        <span class="stat-label">
+          Genomförda pauser
+        </span>
       </div>
 
       <div class="stat-card">
-        <span class="stat-number" id="total-minutes">0</span>
-        <span class="stat-label">Pausminuter</span>
+        <span class="stat-number"
+              id="total-minutes">0</span>
+        <span class="stat-label">
+          Pausminuter
+        </span>
       </div>
 
       <div class="stat-card">
-        <span class="stat-number" id="today-pauses">0</span>
-        <span class="stat-label">Pauser idag</span>
+        <span class="stat-number"
+              id="active-days">0</span>
+        <span class="stat-label">
+          Aktiva dagar
+        </span>
       </div>
 
       <div class="stat-card">
-        <span class="stat-number" id="streak-days">0</span>
-        <span class="stat-label">Dagar i följd</span>
+        <span class="stat-number"
+              id="streak-days">0</span>
+        <span class="stat-label">
+          Dagar i följd
+        </span>
       </div>
+
     </section>
 
-    <section class="weekly-card">
-        <div class="chart-navigation">
-            <button type="button" id="prev-period" aria-label="Föregående period">
-              ❮
-            </button>
-          
-            <h2 id="chart-title">Denna vecka</h2>
-          
-            <button type="button" id="next-period" aria-label="Nästa period">
-              ❯
-            </button>
-          </div>
+    <!-- DIAGRAM -->
+    <section class="weekly-card"
+             aria-label="Pausdiagram">
 
-        <div class="period-buttons">
-          <button type="button" id="week-btn" class="active">
-            Vecka
-          </button>
-          <button type="button" id="month-btn">
-            Månad
-          </button>
-        </div>
+      <div class="chart-navigation">
 
-      <div class="weekly-chart" id="weekly-chart">
-        <div class="day"><div class="bar"></div>Mån</div>
-        <div class="day"><div class="bar"></div>Tis</div>
-        <div class="day"><div class="bar"></div>Ons</div>
-        <div class="day"><div class="bar"></div>Tor</div>
-        <div class="day"><div class="bar"></div>Fre</div>
-        <div class="day"><div class="bar"></div>Lör</div>
-        <div class="day"><div class="bar"></div>Sön</div>
+        <button type="button"
+                id="prev-period"
+                aria-label="Föregående period">
+          ❮
+        </button>
+
+        <h2 id="chart-title">
+          Denna vecka
+        </h2>
+
+        <button type="button"
+                id="next-period"
+                aria-label="Nästa period">
+          ❯
+        </button>
+
       </div>
+
+      <div class="period-buttons"
+           aria-label="Välj tidsperiod">
+
+        <button type="button"
+                id="day-btn">
+          Dag
+        </button>
+
+        <button type="button"
+                id="week-btn"
+                class="active">
+          Vecka
+        </button>
+
+        <button type="button"
+                id="month-btn">
+          Månad
+        </button>
+
+      </div>
+
+      <div class="weekly-chart"
+           id="weekly-chart"
+           aria-label="Pausminuter per dag">
+      </div>
+
+      <p id="chart-empty" hidden>
+        Inga registrerade pauser under denna period ännu.
+      </p>
+
     </section>
 
-    <a class="back-link" href="index.html">
-      ← Till startsidan
-    </a>
+    <!-- TILLBAKA-PIL LÄNGST NED TILL VÄNSTER -->
+    <nav class="overview-navigation"
+         aria-label="Tillbaka">
+
+      <a
+        href="hem.html"
+        class="overview-back-btn"
+        aria-label="Tillbaka till Hem"
+        title="Tillbaka">
+        <span aria-hidden="true">←</span>
+      </a>
+
+    </nav>
+
   </main>
 
   <script src="oversikt.js"></script>
+
 </body>
 </html>

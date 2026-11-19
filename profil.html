@@ -5,131 +5,207 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
-  <title>Min profil – Skärmpaus</title>
+
+  <title>Min profil – Skärmfrid</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Tillbaka-pil längst ned till vänster */
+
+    .profil-navigation {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 24px;
+      margin-bottom: 20px;
+    }
+
+    .profil-back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: #e7eedc;
+      color: #254b3b;
+      border: 1px solid #b6c8b6;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: 500;
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: background 0.2s ease;
+    }
+
+    .profil-back-btn:hover {
+      background: #d5e3cd;
+    }
+
+    .profil-back-btn:focus-visible {
+      outline: 3px solid #254b3b;
+      outline-offset: 3px;
+    }
+  </style>
 </head>
+
 <body>
   <div class="app">
+
     <header class="brand">
-      <p class="logo">Skärmpaus</p>
+      <p class="logo">Skärmfrid</p>
       <p class="tagline">
         Lite mindre scroll. Lite mer liv.
       </p>
     </header>
 
-    
-
     <nav class="tabbar" aria-label="Huvudmeny">
-         
-<a class="tab" href="index.html">
-    <svg viewBox="0 0 24 24"
-         aria-hidden="true"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2"
-         stroke-linecap="round">
-      <path d="M3 10L12 3L21 10V21H3V10Z"></path>
-      <path d="M9 21V14H15V21"></path>
-    </svg>
-    Hem
-  </a>
-  
-        <a class="tab is-active" href="profil.html"
-           aria-current="page">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"></path>
-          </svg>
-          Profil
-        </a>
-      
-        <a class="tab is-disabled" href="#"
-           aria-disabled="true" tabindex="-1">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"></path>
-          </svg>
-          Favoriter
-        </a>
-      
-        
-<a class="tab" href="oversikt.html">
-    <svg viewBox="0 0 24 24"
-         aria-hidden="true"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2"
-         stroke-linecap="round">
-      <path d="M4 20V12M10 20V5M16 20V9M22 20V3"></path>
-    </svg>
-    Översikt
-  </a>
-  
-      
-      </nav>
-  
+
+      <a class="tab" href="hem.html">
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round">
+          <path d="M3 10L12 3L21 10V21H3V10Z"></path>
+          <path d="M9 21V14H15V21"></path>
+        </svg>
+        Hem
+      </a>
+
+      <a class="tab is-active"
+         href="profil.html"
+         aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"></path>
+        </svg>
+        Profil
+      </a>
+
+      <a class="tab is-disabled"
+         href="#"
+         aria-disabled="true"
+         tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"></path>
+        </svg>
+        Favoriter
+      </a>
+
+      <a class="tab" href="oversikt.html">
+        <svg viewBox="0 0 24 24"
+             aria-hidden="true"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round">
+          <path d="M4 20V12M10 20V5M16 20V9M22 20V3"></path>
+        </svg>
+        Översikt
+      </a>
+
+    </nav>
 
     <main class="profil-page">
+
       <h1>Min profil</h1>
       <p>Din personliga pausplats</p>
-      <p class="user-greeting" id="user-greeting" hidden></p>
+
+      <p class="user-greeting"
+         id="user-greeting"
+         hidden></p>
 
       <section class="profil-card">
+
         <div class="profil-avatar">👤</div>
+
         <h2>Personliga uppgifter</h2>
 
-        <label for="profil-namn">Ditt namn</label>
-        <input id="profil-namn"
-               type="text"
-               placeholder="Skriv ditt namn">
+        <label for="profil-namn">
+          Ditt namn
+        </label>
+        <input
+          id="profil-namn"
+          type="text"
+          placeholder="Skriv ditt namn">
 
-               <label for="profil-smeknamn">Smeknamn (valfritt)</label>
-<input
-  id="profil-smeknamn"
-  type="text"
-  maxlength="30"
-  placeholder="Vad vill du bli kallad?"
->
+        <label for="profil-smeknamn">
+          Smeknamn (valfritt)
+        </label>
+        <input
+          id="profil-smeknamn"
+          type="text"
+          maxlength="30"
+          placeholder="Vad vill du bli kallad?">
 
-        <label for="profil-mal">Mitt pausmål per dag</label>
+        <label for="profil-mal">
+          Mitt pausmål per dag
+        </label>
         <select id="profil-mal">
           <option value="15">15 minuter</option>
           <option value="30">30 minuter</option>
           <option value="60">60 minuter</option>
           <option value="120">120 minuter</option>
         </select>
-        <label for="profil-paminnelse">Påminn mig efter</label>
-<select id="profil-paminnelse">
-  <option value="30">30 minuter</option>
-  <option value="60">60 minuter</option>
-  <option value="90">90 minuter</option>
-  <option value="120">120 minuter</option>
-</select>
 
-<label for="profil-aktivitet">Min favoritaktivitet</label>
-<select id="profil-aktivitet">
-  <option value="">Välj aktivitet</option>
-  <option value="promenad">Promenad</option>
-  <option value="traning">Träning</option>
-  <option value="lasa">Läsa en bok</option>
-  <option value="musik">Lyssna på musik</option>
-  <option value="familj">Tid med familjen</option>
-</select>
+        <label for="profil-paminnelse">
+          Påminn mig efter
+        </label>
+        <select id="profil-paminnelse">
+          <option value="30">30 minuter</option>
+          <option value="60">60 minuter</option>
+          <option value="90">90 minuter</option>
+          <option value="120">120 minuter</option>
+        </select>
 
-<label for="profil-plats">Jag föredrar att vara</label>
-<select id="profil-plats">
-  <option value="bada">Både inne och ute</option>
-  <option value="inne">Inomhus</option>
-  <option value="ute">Utomhus</option>
-</select>
+        <label for="profil-aktivitet">
+          Min favoritaktivitet
+        </label>
+        <select id="profil-aktivitet">
+          <option value="">Välj aktivitet</option>
+          <option value="promenad">Promenad</option>
+          <option value="traning">Träning</option>
+          <option value="lasa">Läsa en bok</option>
+          <option value="musik">Lyssna på musik</option>
+          <option value="familj">Tid med familjen</option>
+        </select>
+
+        <label for="profil-plats">
+          Jag föredrar att vara
+        </label>
+        <select id="profil-plats">
+          <option value="bada">Både inne och ute</option>
+          <option value="inne">Inomhus</option>
+          <option value="ute">Utomhus</option>
+        </select>
 
         <button type="button" id="spara-profil">
           Spara profil
         </button>
+
         <p id="profil-meddelande" role="status"></p>
+
       </section>
+
+      <!-- Tillbaka-pil längst ned till vänster -->
+      <nav class="profil-navigation"
+           aria-label="Tillbaka">
+
+        <a href="hem.html"
+           class="profil-back-btn"
+           aria-label="Tillbaka till startsidan"
+           title="Tillbaka">
+          <span aria-hidden="true">←</span>
+        </a>
+
+      </nav>
+
     </main>
+
   </div>
 
   <script src="profil.js"></script>
+
 </body>
 </html>

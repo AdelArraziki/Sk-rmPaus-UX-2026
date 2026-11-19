@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Skärmfrid</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#254b3b">
+
+  <style>
+    /* Luftigare Skärmpaus-panel */
+    #pause-form.setup {
+      width: calc(100% - 32px);
+      max-width: 580px;
+      margin: 48px auto 0;
+      padding: 24px;
+      gap: 26px;
+      border-radius: 22px;
+    }
+
+    @media (max-width: 600px) {
+      #pause-form.setup {
+        width: calc(100% - 16px);
+        margin-top: 36px;
+        padding: 18px;
+        gap: 22px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      #pause-form.setup {
+        max-width: 580px;
+        margin: 48px auto 0;
+      }
+    }
+
+    /* Visa valfri tid endast när den väljs */
+    #pause-form #pause-custom-time {
+      display: none !important;
+      margin-top: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    #pause-form:has(#pause-duration option[value="custom"]:checked)
+    #pause-custom-time {
+      display: block !important;
+    }
+
+    #pause-custom-time .custom-time-fields {
+      display: flex;
+      gap: 10px;
+      margin-top: 0;
+    }
+
+    #pause-custom-time .custom-time-fields input {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+    }
+
+
+/* Språksymbol – funktion kommer senare */
+.brand {
+  position: relative;
+}
+
+.language-icon {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 23px;
+  line-height: 1;
+  user-select: none;
+}
+
+
+/* Röd Stoppa-knapp när påminnelsen är aktiv */
+#start-reminder.is-stopping {
+  background: #b83b3b !important;
+  color: white !important;
+  border-color: #b83b3b !important;
+}
+
+/* Nedräkning */
+#reminder-status {
+  font-weight: 600;
+  color: #254b3b;
+  font-variant-numeric: tabular-nums;
+}
+
+
+  </style>
+</head>
+
+<body>
+<div class="app">
+
+  
+<header class="brand">
+  <span class="language-icon"
+        role="img"
+        aria-label="Språkval kommer snart"
+        title="Språkval kommer snart">
+    🌐
+  </span>
+
+  <p class="logo">Skärmfrid</p>
+
+    <p class="tagline">Lite mindre scroll. Lite mer liv.</p>
+    <p class="user-greeting" id="user-greeting" hidden></p>
+  </header>
+
+  <nav class="tabbar" aria-label="Huvudmeny">
+
+    <a class="tab" href="profil.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="4"></circle>
+        <path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"></path>
+      </svg>
+      Profil
+    </a>
+
+    <a class="tab is-disabled"
+       href="#"
+       aria-disabled="true"
+       tabindex="-1">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12.8 19.6 12 20.3l-.8-.7C6.4 15.1 3.5 12.5 3.5 9.4A4.3 4.3 0 0 1 8 5.1c1.4 0 2.7.6 3.5 1.7A4.5 4.5 0 0 1 16 5.1a4.3 4.3 0 0 1 4.5 4.3c0 3.1-2.9 5.7-7.7 10.2z"></path>
+      </svg>
+      Favoriter
+    </a>
+
+    <a class="tab" href="oversikt.html">
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <path d="M4 20V12M10 20V5M16 20V9M22 20V3"></path>
+      </svg>
+      Översikt
+    </a>
+
+  </nav>
+
+  <main class="page">
+
+    <!-- Påminnelse och Göteborgsbild -->
+    <section
+      class="intro"
+      aria-label="Påminnelse och Göteborgsbild"
+    >
+
+      <div class="hero-content">
+
+        <div class="reminder-area">
+
+          <p class="reminder-description">
+            <strong>Påminn dig själv om att ta en paus.</strong>
+          </p>
+
+          <p
+            id="reminder-status"
+            class="reminder-status"
+            role="status"
+            aria-live="polite"
+          ></p>
+
+          <div class="reminder-mini">
+
+            <label for="reminder-time">
+              🔔 Påminnelse
+            </label>
+
+            <select id="reminder-time">
+              <option value="5">5 min</option>
+              <option value="15">15 min</option>
+              <option value="30">30 min</option>
+              <option value="60" selected>60 min</option>
+              <option value="90">90 min</option>
+              <option value="120">120 min</option>
+              <option value="custom">Valfri tid</option>
+            </select>
+
+                       
+<input
+type="text"
+id="reminder-custom-minutes"
+inputmode="numeric"
+placeholder="00:04"
+aria-label="Valfri påminnelsetid i minuter och sekunder"
+hidden
+>
+
+            <button
+              type="button"
+              id="start-reminder"
+              class="reminder-start"
+            >
+              Starta
+            </button>
+
+          </div>
+        </div>
+
+        <div class="hero-frame">
+          <img
+            class="hero-image"
+            src="images/goteborg-alvsborgsbron.png"
+            alt="Älvsborgsbron i Göteborg vid solnedgången"
+          >
+        </div>
+
+      </div>
+
+      <p class="lead">
+        Låt mobilen vila. Hitta något litet som gör dig gott,
+        precis där du är.
+      </p>
+
+    </section>
+
+    <!-- Skärmpaus-panel -->
+    <form class="setup" id="pause-form">
+
+      <div class="pause-time-box">
+
+        <label for="pause-duration">
+          ⏱ Skärmpaus
+        </label>
+
+        <select id="pause-duration" name="duration">
+          <option value="15">15 min</option>
+          <option value="30" selected>30 min</option>
+          <option value="60">1 timme</option>
+          <option value="120">2 timmar</option>
+          <option value="custom">Valfri tid</option>
+        </select>
+
+      </div>
+
+      <!-- Minuter och sekunder visas endast vid Valfri tid -->
+      <div
+        class="custom-time"
+        id="pause-custom-time"
+        hidden
+      >
+        <div class="custom-time-fields">
+
+          <input
+            type="number"
+            id="custom-minutes"
+            min="0"
+            max="120"
+            placeholder="Minuter"
+            aria-label="Minuter"
+          >
+
+          <input
+            type="number"
+            id="custom-seconds"
+            min="0"
+            max="59"
+            placeholder="Sekunder"
+            aria-label="Sekunder"
+          >
+
+        </div>
+      </div>
+
+      <fieldset class="choice">
+        <legend>Var vill du vara?</legend>
+
+        <div
+          class="segmented"
+          role="radiogroup"
+          aria-label="Plats"
+        >
+
+          <label class="segment">
+            <input
+              type="radio"
+              name="place"
+              value="inne"
+              checked
+            >
+            <span>Inne</span>
+          </label>
+
+          <label class="segment">
+            <input
+              type="radio"
+              name="place"
+              value="ute"
+            >
+            <span>Ute</span>
+          </label>
+
+        </div>
+      </fieldset>
+
+      <fieldset class="choice">
+        <legend>Med vem?</legend>
+
+        <div
+          class="segmented"
+          role="radiogroup"
+          aria-label="Sällskap"
+        >
+
+          <label class="segment">
+            <input
+              type="radio"
+              name="company"
+              value="ensam"
+              checked
+            >
+            <span>Ensam</span>
+          </label>
+
+          <label class="segment">
+            <input
+              type="radio"
+              name="company"
+              value="tillsammans"
+            >
+            <span>Tillsammans</span>
+          </label>
+
+        </div>
+      </fieldset>
+
+      <button class="btn-primary" type="submit">
+        Ta en paus
+      </button>
+
+      <p
+        class="form-status"
+        id="form-status"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+    </form>
+
+    <p class="footnote">
+      En paus räknas. Oavsett hur lång den är.
+    </p>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+<script src="paminnelse.js"></script>
+
+</body>
+</html>
